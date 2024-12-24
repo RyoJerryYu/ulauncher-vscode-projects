@@ -15,6 +15,6 @@ class ItemEnterEventListener(EventListener):
         new_env = os.environ.copy()
         del new_env['PYTHONPATH']
         if not data['path'].startswith('vscode-remote://'):
-            subprocess.run([code_executable, data['path']])
+            subprocess.run([code_executable, data['path']], env=new_env)
         else:
-            subprocess.run([code_executable, '--folder-uri', data['path']])
+            subprocess.run([code_executable, '--folder-uri', data['path']], env=new_env)
