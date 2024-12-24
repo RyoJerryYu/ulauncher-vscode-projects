@@ -1,3 +1,4 @@
+import os
 import subprocess
 from ulauncher.api.client.Extension import Extension
 from ulauncher.api.client.EventListener import EventListener
@@ -11,6 +12,8 @@ class ItemEnterEventListener(EventListener):
         data = event.get_data()
 
         code_executable = extension.preferences['code_executable_path']
+        new_env = os.environ.copy()
+        del new_env['PYTHONPATH']
         if not data['path'].startswith('vscode-remote://'):
             subprocess.run([code_executable, data['path']])
         else:
